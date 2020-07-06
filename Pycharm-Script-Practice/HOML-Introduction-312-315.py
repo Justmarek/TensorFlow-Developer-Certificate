@@ -1,4 +1,4 @@
-# Handling Multiple inputs and outputs
+# Saving Models
 
 # Import libraries
 import os
@@ -36,6 +36,4 @@ X_new_A, X_new_B = X_test_A[:3], X_test[:, 2:]
 
 history = model.fit((X_train_A, X_train_B), y_train, epochs=20, validation_data = ((X_valid_A, X_valid_B), y_valid))
 
-mse_test = model.evaluate((X_test_A, X_test_B), y_test)
-
-y_pred = model.predict((X_new_A, X_new_B))
+model.save("my_keras_model.h5")

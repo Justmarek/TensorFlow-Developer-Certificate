@@ -19,7 +19,7 @@ X_train = scalar.fit_transform(X_train)
 X_valid = scalar.transform(X_valid)
 X_test = scalar.transform(X_test)
 
-# Buildimng a Wide and Deep network
+# Building a Wide and Deep network
 input_ = keras.layers.Input(shape=X_train.shape[1:])
 hidden1 = keras.layers.Dense(30, activation='relu')(input_)
 hidden2 = keras.layers.Dense(30, activation = 'relu')(hidden1)
