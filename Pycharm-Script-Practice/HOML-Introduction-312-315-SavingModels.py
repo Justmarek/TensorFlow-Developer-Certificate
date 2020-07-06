@@ -36,4 +36,4 @@ X_new_A, X_new_B = X_test_A[:3], X_test[:, 2:]
 
 history = model.fit((X_train_A, X_train_B), y_train, epochs=20, validation_data = ((X_valid_A, X_valid_B), y_valid))
 
-model.save("my_keras_model.h5")
+model.save("models/my_keras_model.h5")
