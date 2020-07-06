@@ -1,6 +1,8 @@
 import os
-os.environ['TF_CPP_MIN_LOG_LEVEL']='2'
+os.environ['KMP_DUPLICATE_LIB_OK']='True'
 import tensorflow as tf
+import pandas as pd
+import matplotlib.pyplot as plt
 from tensorflow import keras
 
 print(tf.__version__)
@@ -30,4 +32,16 @@ model = keras.models.Sequential([
     keras.layers.Dense(10, activation="softmax")
 ])
 
-print(model.summary())
+model.compile(loss="sparse_categorical_crossentropy",
+              optimizer="sgd",
+              metrics=["accuracy"])
+
+# Training and evaludatin the model
+
+history = model.fit(X_train, y_train, epochs=30,
+                    validation_data=(X_valid, y_valid))
+
+pd.DataFrame(history.history).plot(figsize=(8,5))
+plt.grid(True)
+plt.gca().set_ylim(0,1) # set the vertical range to [0-1]
+plt.show()
