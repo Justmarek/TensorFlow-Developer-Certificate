@@ -1,12 +1,8 @@
 # Using callbacks
 
-# Saving Models
-
 # Import libraries
 import os
 os.environ['KMP_DUPLICATE_LIB_OK']='True'
-import tensorflow as tf
-import pandas as pd
 from tensorflow import keras
 from sklearn.datasets import fetch_california_housing
 from sklearn.model_selection import train_test_split
@@ -44,4 +40,5 @@ history = model.fit((X_train_A, X_train_B), y_train, epochs=20, validation_data 
                     callbacks=[checkpoint_cb, early_stopping_cb])
 
 # Rollback to best model
+model_rollback = keras.models.load_model("models/my_keras_checkpoint_model.h5")
 model_rollback = keras.models.load_model("models/my_keras_checkpoint_model.h5")
