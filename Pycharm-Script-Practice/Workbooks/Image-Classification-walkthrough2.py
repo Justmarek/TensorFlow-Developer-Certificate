@@ -147,3 +147,19 @@ val_data_gen = image_gen_val.flow_from_directory(batch_size=batch_size,
                                                  directory=validation_dir,
                                                  target_size=(IMG_HEIGHT, IMG_WIDTH),
                                                  class_mode='binary')
+
+# Creating a new model with dropout
+model_new = Sequential([
+    Conv2D(16, 3, padding='same', activation='relu',
+           input_shape=(IMG_HEIGHT, IMG_WIDTH ,3)),
+    MaxPooling2D(),
+    Dropout(0.2),
+    Conv2D(32, 3, padding='same', activation='relu'),
+    MaxPooling2D(),
+    Conv2D(64, 3, padding='same', activation='relu'),
+    MaxPooling2D(),
+    Dropout(0.2),
+    Flatten(),
+    Dense(512, activation='relu'),
+    Dense(1)
+])
