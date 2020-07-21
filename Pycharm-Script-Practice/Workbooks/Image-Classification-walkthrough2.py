@@ -7,6 +7,9 @@ import os
 import numpy as np
 import matplotlib.pyplot as plt
 
+# Silence errors
+os.environ['KMP_DUPLICATE_LIB_OK']='True'
+
 # Load data
 _URL = 'https://storage.googleapis.com/mledu-datasets/cats_and_dogs_filtered.zip'
 
@@ -117,3 +120,30 @@ plt.plot(epochs_range, val_loss, label='Validation Loss')
 plt.legend(loc='upper right')
 plt.title('Training and Validation Loss')
 plt.show()
+
+# In this figure - training accuracy is increasingly linearly over time, whereas validation accuracy stalls at around 70%
+# This can be fixed through data augmentation
+
+# Create a image generator with augmentations
+image_gen_train = ImageDataGenerator(
+                    rescale=1./255,
+                    rotation_range=45,
+                    width_shift_range=.15,
+                    height_shift_range=.15,
+                    horizontal_flip=True,
+                    zoom_range=0.5
+                    )
+
+train_data_gen = image_gen_train.flow_from_directory(batch_size=batch_size,
+                                                     directory=train_dir,
+                                                     shuffle=True,
+                                                     target_size=(IMG_HEIGHT, IMG_WIDTH),
+                                                     class_mode='binary')
+
+# Ideally we only apply data augmentation to the training examples. In this case only rescale the
+image_gen_val = ImageDataGenerator(rescale=1./255)
+
+val_data_gen = image_gen_val.flow_from_directory(batch_size=batch_size,
+                                                 directory=validation_dir,
+                                                 target_size=(IMG_HEIGHT, IMG_WIDTH),
+                                                 class_mode='binary')
