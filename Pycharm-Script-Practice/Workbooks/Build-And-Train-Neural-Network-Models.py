@@ -18,9 +18,7 @@ zip_ref.close()
 # Preprocess data to get it ready for use in a model.
 # GRADED FUNCTION: train_happy_sad_model
 def train_happy_sad_model():
-    # Please write your code only where you are indicated.
-    # please do not remove # model fitting inline comments.
-
+     # Use callbacks to trigger the end of training cycles.
     DESIRED_ACCURACY = 0.999
     print(type(DESIRED_ACCURACY))
     class myCallback(tf.keras.callbacks.Callback):
@@ -29,6 +27,7 @@ def train_happy_sad_model():
                 print('\nReached 99.9% accuracy so cancelling training!')
                 self.model.stop_training = True
 
+    # Callback class used here
     callbacks = myCallback()
 
     # This Code Block should Define and Compile the Model. Please assume the images are 150 X 150 in your implementation.
@@ -102,8 +101,6 @@ train_happy_sad_model()
 
 #  Identify strategies to prevent overfitting, including augmentation and dropout.
 
-# Use pretrained models (transfer learning).
-
 # Extract features from pre-trained models.
 
 # Ensure that inputs to a model are in the correct shape.
@@ -111,13 +108,3 @@ train_happy_sad_model()
 # Ensure that you can match test data to the input shape of a neural network.
 
 # Ensure you can match output data of a neural network to specified input shape for test data.
-
-# Understand batch loading of data.
-
-# Use callbacks to trigger the end of training cycles.
-
-# Use datasets from different sources.
-
-# Use datasets in different formats, including json and csv.
-
-# Use datasets from tf.data.datasets
