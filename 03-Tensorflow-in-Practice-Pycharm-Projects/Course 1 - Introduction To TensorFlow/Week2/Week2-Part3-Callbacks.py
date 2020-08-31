@@ -6,7 +6,7 @@ class myCallback(tf.keras.callbacks.Callback):
     def on_epoch_end(self, epoch, logs={}):
         if(logs.get("accuracy")>0.6):
             print("\nReached 60% accuracy so cancelling training!")
-            self.model.strop_training = True
+            self.model.stop_training = True
 
 # Import data
 mnist = tf.keras.datasets.fashion_mnist
