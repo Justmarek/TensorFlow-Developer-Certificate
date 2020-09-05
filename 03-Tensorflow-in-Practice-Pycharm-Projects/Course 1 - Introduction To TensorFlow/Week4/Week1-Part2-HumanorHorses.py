@@ -38,7 +38,7 @@ model = tf.keras.models.Sequential([
 
 # Compile model
 model.compile(loss="binary_crossentropy",
-              optimizer=RMSprop(lr=0.01),
+              optimizer=RMSprop(lr=0.001),
               metrics=['accuracy'])
 
 # Data preprocessing
