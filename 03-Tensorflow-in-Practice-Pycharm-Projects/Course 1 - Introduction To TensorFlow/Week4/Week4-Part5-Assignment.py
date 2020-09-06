@@ -70,6 +70,6 @@ def train_happy_sad_model():
     # model fitting
     return history.history['accuracy'][-1]
 
-# Run function 
+# Run function
 # The Expected output: "Reached 99.9% accuracy so cancelling training!""
 train_happy_sad_model()
