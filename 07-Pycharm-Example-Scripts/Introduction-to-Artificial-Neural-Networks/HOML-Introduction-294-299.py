@@ -20,8 +20,8 @@ y_valid, y_train = y_train_full[:5000], y_train_full[5000:]
 # Create class_names
 class_names = ["T-shirt/top", "Trouser", "Pullover", "Dress", "Coat", "Sandal", "Shirt", "Sneaker", "Bag", "Ankle Boot"]
 
-# Creating the model with the Sequential API
-# This creates a Sequential model
+# Creating the pretrainedmodel with the Sequential API
+# This creates a Sequential pretrainedmodel
 model = keras.models.Sequential()
 
 # This is a flatten layer whose role is to convert each image into a 1D array. The layer is here to do preprocessing

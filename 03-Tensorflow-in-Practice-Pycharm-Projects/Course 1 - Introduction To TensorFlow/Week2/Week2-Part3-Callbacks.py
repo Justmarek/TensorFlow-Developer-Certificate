@@ -17,17 +17,17 @@ mnist = tf.keras.datasets.fashion_mnist
 # Instantiate callback
 callbacks = myCallback()
 
-# Creating the model
+# Creating the pretrainedmodel
 model = tf.keras.models.Sequential([
     tf.keras.layers.Flatten(input_shape=(28,28)),
     tf.keras.layers.Dense(512, activation=tf.nn.relu),
     tf.keras.layers.Dense(10, activation=tf.nn.softmax)
 ])
 
-# Compile model
+# Compile pretrainedmodel
 model.compile(optimizer=tf.optimizers.Adam(),
              loss='sparse_categorical_crossentropy',
              metrics=["accuracy"])
 
-# Fit model
+# Fit pretrainedmodel
 model.fit(x_train, y_train, epochs=1, callbacks=[callbacks])

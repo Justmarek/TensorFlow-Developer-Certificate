@@ -19,13 +19,13 @@ X_train = scalar.fit_transform(X_train)
 X_valid = scalar.transform(X_valid)
 X_test = scalar.transform(X_test)
 
-# Create model
+# Create pretrainedmodel
 model = keras.models.Sequential([
     keras.layers.Dense(30, activation='relu', input_shape=X_train.shape[1:]),
     keras.layers.Dense(1)
 ])
 
-# Compile model
+# Compile pretrainedmodel
 model.compile(loss='mean_squared_error', optimizer='sgd')
 history = model.fit(X_train, y_train, epochs=20, validation_data=(X_valid, y_valid))
 mse_test = model.evaluate(X_test, y_test)

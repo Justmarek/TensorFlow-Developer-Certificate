@@ -21,7 +21,7 @@ validation_cats_dir = os.path.join(validation_dir, "cats")
 # Directory with validation dog pictures
 validation_dogs_dir = os.path.join(validation_dir, "dogs")
 
-# Create model
+# Create pretrainedmodel
 model = tf.keras.models.Sequential([
     tf.keras.layers.Conv2D(32, (3, 3), activation="relu", input_shape=(150, 150, 3)),
     tf.keras.layers.MaxPooling2D(2, 2),
@@ -36,7 +36,7 @@ model = tf.keras.models.Sequential([
     tf.keras.layers.Dense(1, activation="sigmoid")
     ])
 
-# Compile model
+# Compile pretrainedmodel
 model.compile(loss="binary_crossentropy",
               optimizer=RMSprop(lr=1e-4),
               metrics=["accuracy"])

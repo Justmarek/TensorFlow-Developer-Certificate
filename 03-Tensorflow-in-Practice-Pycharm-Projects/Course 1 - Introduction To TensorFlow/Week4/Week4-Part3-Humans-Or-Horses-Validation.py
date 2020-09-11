@@ -17,7 +17,7 @@ validation_horse_dir = os.path.join('data/validation-horse-or-human/horses')
 # Directory with our training human pictures
 validation_human_dir = os.path.join('data/validation-horse-or-human/humans')
 
-# Build model
+# Build pretrainedmodel
 model = tf.keras.models.Sequential([
     # Note the input shape is the desired size of the image 300x300 with 3 bytes color
     # This is the first convolution
@@ -43,7 +43,7 @@ model = tf.keras.models.Sequential([
     tf.keras.layers.Dense(1, activation='sigmoid')
 ])
 
-# Compile model
+# Compile pretrainedmodel
 model.compile(loss='binary_crossentropy',
               optimizer=RMSprop(lr=0.001),
               metrics=['accuracy'])
@@ -67,7 +67,7 @@ validation_generator = validation_datagen.flow_from_directory(
     batch_size=32,
     class_mode="binary")
 
-# Training model
+# Training pretrainedmodel
 training = model.fit(
     train_generator,
     steps_per_epoch=8,

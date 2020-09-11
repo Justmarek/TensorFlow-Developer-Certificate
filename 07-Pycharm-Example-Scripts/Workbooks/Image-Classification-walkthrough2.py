@@ -69,7 +69,7 @@ val_data_gen = validation_image_generator.flow_from_directory(batch_size=batch_s
                                                               target_size=(IMG_HEIGHT, IMG_WIDTH),
                                                               class_mode='binary')
 
-# Create the model
+# Create the pretrainedmodel
 model = Sequential([
     Conv2D(16, 3, padding='same', activation='relu', input_shape=(IMG_HEIGHT, IMG_WIDTH ,3)),
     MaxPooling2D(),
@@ -82,14 +82,14 @@ model = Sequential([
     Dense(1)
 ])
 
-# Compile the model
+# Compile the pretrainedmodel
 model.compile(optimizer='adam',
               loss=tf.keras.losses.BinaryCrossentropy(from_logits=True),
               metrics=['accuracy'])
 
 model.summary()
 
-# Train the model
+# Train the pretrainedmodel
 history = model.fit(
     train_data_gen,
     steps_per_epoch=total_train // batch_size,
@@ -148,7 +148,7 @@ val_data_gen = image_gen_val.flow_from_directory(batch_size=batch_size,
                                                  target_size=(IMG_HEIGHT, IMG_WIDTH),
                                                  class_mode='binary')
 
-# Creating a new model with dropout
+# Creating a new pretrainedmodel with dropout
 model_new = Sequential([
     Conv2D(16, 3, padding='same', activation='relu',
            input_shape=(IMG_HEIGHT, IMG_WIDTH ,3)),

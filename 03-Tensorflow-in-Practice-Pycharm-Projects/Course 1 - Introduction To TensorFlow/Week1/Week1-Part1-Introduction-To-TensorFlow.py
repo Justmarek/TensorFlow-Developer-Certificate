@@ -3,10 +3,10 @@ import tensorflow as tf
 import numpy as np
 from tensorflow import keras
 
-# Defining and compiling our first model
+# Defining and compiling our first pretrainedmodel
 model = tf.keras.Sequential([keras.layers.Dense(units=1, input_shape=[1])])
 
-# Compiling the model
+# Compiling the pretrainedmodel
 model.compile(optimizer="sgd", loss="mean_squared_error")
 
 # Providing the initial data
@@ -16,5 +16,5 @@ ys = np.array([-3.0, -1.0, 1.0, 3.0, 5.0, 7.0], dtype="float")
 # Training the neural network
 model.fit(xs, ys, epochs=100)
 
-# Testing the model
+# Testing the pretrainedmodel
 print(model.predict([10.0]))

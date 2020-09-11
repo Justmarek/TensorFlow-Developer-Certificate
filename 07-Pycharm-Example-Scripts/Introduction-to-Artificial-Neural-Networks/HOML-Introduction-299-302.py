@@ -22,7 +22,7 @@ y_valid, y_train = y_train_full[:5000], y_train_full[5000:]
 # Create class_names
 class_names = ["T-shirt/top", "Trouser", "Pullover", "Dress", "Coat", "Sandal", "Shirt", "Sneaker", "Bag", "Ankle Boot"]
 
-# Creating the model with the Sequential API
+# Creating the pretrainedmodel with the Sequential API
 model = keras.models.Sequential([
     keras.layers.Flatten(input_shape=[28,28]),
     keras.layers.Dense(300, activation="relu"),

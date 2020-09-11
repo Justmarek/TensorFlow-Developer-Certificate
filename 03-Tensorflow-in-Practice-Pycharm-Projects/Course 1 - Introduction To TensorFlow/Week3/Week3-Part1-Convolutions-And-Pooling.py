@@ -21,7 +21,7 @@ class myCallback(tf.keras.callbacks.Callback):
 # Instantiate callback
 callbacks = myCallback()
 
-# Building a new model
+# Building a new pretrainedmodel
 model = tf.keras.models.Sequential([
     tf.keras.layers.Conv2D(64, (3, 3), activation="relu", input_shape=(28, 28, 1)),
     tf.keras.layers.MaxPooling2D(2, 2),
@@ -32,12 +32,12 @@ model = tf.keras.models.Sequential([
     tf.keras.layers.Dense(10, activation="softmax")
 ])
 
-# Compile model
+# Compile pretrainedmodel
 model.compile(optimizer="adam", loss="sparse_categorical_crossentropy", metrics=["accuracy"])
 model.summary()
 
-# Fit model
+# Fit pretrainedmodel
 model.fit(training_images, training_labels, epochs=5, callbacks=[callbacks])
 
-# Evaluate model
+# Evaluate pretrainedmodel
 test_loss = model.evaluate(test_images, test_labels)

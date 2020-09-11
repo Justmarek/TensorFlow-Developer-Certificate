@@ -20,7 +20,7 @@ def train_mnist():
     # Normalise data
     x_train = x_train/255.0
     x_test = x_test/255.0
-    # Create model
+    # Create pretrainedmodel
     model = tf.keras.models.Sequential([
         tf.keras.layers.Flatten(),
         tf.keras.layers.Dense(512, activation=tf.nn.relu),
@@ -28,7 +28,7 @@ def train_mnist():
     model.compile(optimizer="adam",
                   loss="sparse_categorical_crossentropy",
                   metrics=["accuracy"])
-    # model fitting
+    # pretrainedmodel fitting
     history = model.fit(x_train, y_train, epochs=10, callbacks=[callbacks])
     return history.epoch, history.history["accuracy"][-1]
 

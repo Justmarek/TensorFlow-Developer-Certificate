@@ -36,7 +36,7 @@ model = tf.keras.models.Sequential([
     tf.keras.layers.Dense(1, activation="sigmoid")
 ])
 
-# Compile model
+# Compile pretrainedmodel
 model.compile(loss="binary_crossentropy",
               optimizer=RMSprop(lr=0.001),
               metrics=['accuracy'])

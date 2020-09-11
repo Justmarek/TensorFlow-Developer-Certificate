@@ -9,7 +9,7 @@ base_dir = 'data/cats_and_dogs_filtered'
 train_dir = os.path.join(base_dir, 'train')
 validation_dir = os.path.join(base_dir, 'validation')
 
-# Create model
+# Create pretrainedmodel
 model = tf.keras.models.Sequential([
     # Note the input shape is the desired size of the image 150x150 with 3 bytes color
     tf.keras.layers.Conv2D(16, (3,3), activation='relu', input_shape=(150, 150, 3)),
@@ -26,7 +26,7 @@ model = tf.keras.models.Sequential([
     tf.keras.layers.Dense(1, activation='sigmoid')
 ])
 
-# Compile model
+# Compile pretrainedmodel
 model.compile(optimizer=RMSprop(lr=0.001),
               loss='binary_crossentropy',
               metrics = ['accuracy'])
@@ -53,7 +53,7 @@ validation_generator =  test_datagen.flow_from_directory(validation_dir,
                                                          class_mode  = 'binary',
                                                          target_size = (150, 150))
 
-# Train model
+# Train pretrainedmodel
 history = model.fit(train_generator,
                               validation_data=validation_generator,
                               steps_per_epoch=100,

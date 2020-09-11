@@ -39,6 +39,6 @@ early_stopping_cb = keras.callbacks.EarlyStopping(patience=10, restore_best_weig
 history = model.fit((X_train_A, X_train_B), y_train, epochs=20, validation_data = ((X_valid_A, X_valid_B), y_valid),
                     callbacks=[checkpoint_cb, early_stopping_cb])
 
-# Rollback to best model
+# Rollback to best pretrainedmodel
 model_rollback = keras.models.load_model("models/my_keras_checkpoint_model.h5")
 model_rollback = keras.models.load_model("models/my_keras_checkpoint_model.h5")

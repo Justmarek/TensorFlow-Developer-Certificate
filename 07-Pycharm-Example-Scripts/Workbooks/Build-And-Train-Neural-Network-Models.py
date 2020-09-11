@@ -15,7 +15,7 @@ zip_ref = zipfile.ZipFile(path, 'r')
 zip_ref.extractall("/tmp/h-or-s")
 zip_ref.close()
 
-# Preprocess data to get it ready for use in a model.
+# Preprocess data to get it ready for use in a pretrainedmodel.
 # GRADED FUNCTION: train_happy_sad_model
 def train_happy_sad_model():
      # Use callbacks to trigger the end of training cycles.
@@ -71,15 +71,15 @@ def train_happy_sad_model():
         class_mode='binary')
     # Expected output: 'Found 80 images belonging to 2 classes'
 
-    # This code block should call model.fit_generator and train for
+    # This code block should call pretrainedmodel.fit_generator and train for
     # a number of epochs.
-    # model fitting
+    # pretrainedmodel fitting
     history = model.fit_generator(
         train_generator,
         steps_per_epoch=8,
         epochs=15,
         callbacks=[callbacks])
-    # model fitting
+    # pretrainedmodel fitting
     return history.history['accuracy'][-1]
 
 train_happy_sad_model()
@@ -87,7 +87,7 @@ train_happy_sad_model()
 
 # Build, compile and train machine learning (ML) models using TensorFlow.
 
-# Preprocess data to get it ready for use in a model.
+# Preprocess data to get it ready for use in a pretrainedmodel.
 
 # Use models to predict results.
 
@@ -97,13 +97,13 @@ train_happy_sad_model()
 
 # Build and train models for multi-class categorization.
 
-# Plot loss and accuracy of a trained model.
+# Plot loss and accuracy of a trained pretrainedmodel.
 
 #  Identify strategies to prevent overfitting, including augmentation and dropout.
 
 # Extract features from pre-trained models.
 
-# Ensure that inputs to a model are in the correct shape.
+# Ensure that inputs to a pretrainedmodel are in the correct shape.
 
 # Ensure that you can match test data to the input shape of a neural network.
 

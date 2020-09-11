@@ -6,7 +6,7 @@ import os
 # GRADED FUNCTION: train_happy_sad_model
 def train_happy_sad_model():
     # Please write your code only where you are indicated.
-    # please do not remove # model fitting inline comments.
+    # please do not remove # pretrainedmodel fitting inline comments.
 
     DESIRED_ACCURACY = 0.999
 
@@ -59,15 +59,15 @@ def train_happy_sad_model():
         class_mode='binary')
     # Expected output: 'Found 80 images belonging to 2 classes'
 
-    # This code block should call model.fit_generator and train for
+    # This code block should call pretrainedmodel.fit_generator and train for
     # a number of epochs.
-    # model fitting
+    # pretrainedmodel fitting
     history = model.fit_generator(
         train_generator,
         steps_per_epoch=8,
         epochs=15,
         callbacks=[callbacks])
-    # model fitting
+    # pretrainedmodel fitting
     return history.history['accuracy'][-1]
 
 # Run function

@@ -25,7 +25,7 @@ def train_mnist_conv():
     test_images = test_images.reshape(10000, 28, 28, 1)
     test_images = test_images/255.0
 
-    # Build a model
+    # Build a pretrainedmodel
     model = tf.keras.models.Sequential([
         tf.keras.layers.Conv2D(32, (3, 3), activation="relu", input_shape=(28, 28, 1)),
         tf.keras.layers.MaxPooling2D(2, 2),
@@ -34,12 +34,12 @@ def train_mnist_conv():
         tf.keras.layers.Dense(10, activation=tf.nn.softmax)
     ])
 
-    # Compile model
+    # Compile pretrainedmodel
     model.compile(optimizer="adam", loss="sparse_categorical_crossentropy", metrics=["accuracy"])
 
-    # Fit model
+    # Fit pretrainedmodel
     history = model.fit(training_images, training_labels, epochs=10, callbacks=[callbacks])
     return history.epoch, history.history["accuracy"][-1]
 
-# Train model function
+# Train pretrainedmodel function
 train_mnist_conv()
