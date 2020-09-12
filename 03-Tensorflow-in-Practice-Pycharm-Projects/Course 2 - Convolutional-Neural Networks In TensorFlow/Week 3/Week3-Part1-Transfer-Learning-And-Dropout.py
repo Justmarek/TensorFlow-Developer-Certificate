@@ -16,7 +16,7 @@ validation_dir = os.path.join(base_dir, "validation")
 train_cats_dir = os.path.join(train_dir, 'cats') # Directory with our training cat pictures
 train_dogs_dir = os.path.join(train_dir, 'dogs') # Directory with our training dog pictures
 validation_cats_dir = os.path.join(validation_dir, 'cats') # Directory with our validation cat pictures
-validation_dogs_dir = os.path.join(validation_dir, 'dogs') #  Directory with our validation dog pictures
+validation_dogs_dir = os.path.join(validation_dir, 'dogs') # Directory with our validation dog pictures
 train_cat_fnames = os.listdir(train_cats_dir)
 train_dog_fnames = os.listdir(train_dogs_dir)
 
