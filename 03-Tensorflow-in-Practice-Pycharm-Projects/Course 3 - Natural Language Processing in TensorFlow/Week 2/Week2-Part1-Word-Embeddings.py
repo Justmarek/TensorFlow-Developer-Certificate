@@ -7,7 +7,7 @@ from tensorflow.keras.preprocessing.text import Tokenizer
 from tensorflow.keras.preprocessing.sequence import pad_sequences
 imdb, info = tfds.load("imdb_reviews", with_info=True, as_supervised=True)
 
-# Import data
+# Import data - Get IMDB training and test
 train_data, test_data = imdb["train"], imdb["test"]
 
 training_sentences = []
