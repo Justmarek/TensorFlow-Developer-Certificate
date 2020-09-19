@@ -34,7 +34,7 @@ testing_labels_final = np.array(testing_labels)
 vocab_size = 10000
 embedding_dim = 16
 max_length = 120
-trunc_type='post'
+trunc_type = 'post'
 oov_tok = "<OOV>"
 
 # Create tokenizer
