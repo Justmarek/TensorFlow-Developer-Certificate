@@ -185,3 +185,49 @@ def generate_text(model, start_string):
     return (start_string + ''.join(text_generated))
 
 print(generate_text(model, start_string=u"ROMEO: "))
+
+# Advanced: customized training
+model = build_model(
+    vocab_size = len(vocab),
+    embedding_dim=embedding_dim,
+    rnn_units=rnn_units,
+    batch_size=BATCH_SIZE)
+
+optimizer = tf.keras.optimizers.Adam()
+
+@tf.function
+def train_step(inp, target):
+    with tf.GradientTape() as tape:
+        predictions = model(inp)
+        loss = tf.reduce_mean(
+            tf.keras.losses.sparse_categorical_crossentropy(
+                target, predictions, from_logits=True))
+    grads = tape.gradient(loss, model.trainable_variables)
+    optimizer.apply_gradients(zip(grads, model.trainable_variables))
+
+    return loss
+
+# Training step
+EPOCHS = 10
+
+for epoch in range(EPOCHS):
+    start = time.time()
+
+    # resetting the hidden state at the start of every epoch
+    model.reset_states()
+
+    for (batch_n, (inp, target)) in enumerate(dataset):
+        loss = train_step(inp, target)
+
+    if batch_n % 100 == 0:
+        template = 'Epoch {} Batch {} Loss {}'
+        print(template.format(epoch+1, batch_n, loss))
+
+    # saving (checkpoint) the model every 5 epochs
+    if (epoch + 1) % 5 == 0:
+        model.save_weights(checkpoint_prefix.format(epoch=epoch))
+
+    print ('Epoch {} Loss {:.4f}'.format(epoch+1, loss))
+    print ('Time taken for 1 epoch {} sec\n'.format(time.time() - start))
+
+model.save_weights(checkpoint_prefix.format(epoch=epoch))
