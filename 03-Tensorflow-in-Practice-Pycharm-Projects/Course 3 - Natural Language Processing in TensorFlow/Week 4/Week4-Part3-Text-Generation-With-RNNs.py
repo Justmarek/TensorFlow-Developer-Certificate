@@ -6,7 +6,7 @@ import time
 
 
 # Read, then decode for py2 compat.
-path_to_file = "/Data/shakespeare.txt"
+path_to_file = tf.keras.utils.get_file('shakespeare.txt', 'https://storage.googleapis.com/download.tensorflow.org/data/shakespeare.txt')
 text = open(path_to_file, 'rb').read().decode(encoding='utf-8')
 # length of text is the number of characters in it
 print ('Length of text: {} characters'.format(len(text)))
@@ -115,3 +115,73 @@ sampled_indices
 print("Input: \n", repr("".join(idx2char[input_example_batch[0]])))
 print()
 print("Next Char Predictions: \n", repr("".join(idx2char[sampled_indices ])))
+
+# Attach and optimizer and a loss function
+def loss(labels, logits):
+    return tf.keras.losses.sparse_categorical_crossentropy(labels, logits, from_logits=True)
+
+example_batch_loss  = loss(target_example_batch, example_batch_predictions)
+print("Prediction shape: ", example_batch_predictions.shape, " # (batch_size, sequence_length, vocab_size)")
+print("scalar_loss:      ", example_batch_loss.numpy().mean())
+
+# Compile model
+model.compile(optimizer='adam', loss=loss)
+
+# Directory where the checkpoints will be saved
+checkpoint_dir = './training_checkpoints'
+# Name of the checkpoint files
+checkpoint_prefix = os.path.join(checkpoint_dir, "ckpt_{epoch}")
+
+checkpoint_callback=tf.keras.callbacks.ModelCheckpoint(
+    filepath=checkpoint_prefix,
+    save_weights_only=True)
+
+# Execute the training
+EPOCHS=10
+history = model.fit(dataset, epochs=EPOCHS, callbacks=[checkpoint_callback])
+
+# Generate text
+# Restore the latest checkpoint
+tf.train.latest_checkpoint(checkpoint_dir)
+model = build_model(vocab_size, embedding_dim, rnn_units, batch_size=1)
+model.load_weights(tf.train.latest_checkpoint(checkpoint_dir))
+model.build(tf.TensorShape([1, None]))
+model.summary()
+
+# The prediction loop
+def generate_text(model, start_string):
+    # Evaluation step (generating text using the learned model)
+    # Number of characters to generate
+    num_generate = 1000
+
+    # Converting our start string to numbers (vectorizing)
+    input_eval = [char2idx[s] for s in start_string]
+    input_eval = tf.expand_dims(input_eval, 0)
+
+    # Empty string to store our results
+    text_generated = []
+
+    # Low temperatures results in more predictable text.
+    # Higher temperatures results in more surprising text.
+    # Experiment to find the best setting.
+    temperature = 1.0
+
+    # Here batch size == 1
+    model.reset_states()
+    for i in range(num_generate):
+        predictions = model(input_eval)
+        # remove the batch dimension
+        predictions = tf.squeeze(predictions, 0)
+
+        # using a categorical distribution to predict the character returned by the model
+        predictions = predictions / temperature
+        predicted_id = tf.random.categorical(predictions, num_samples=1)[-1,0].numpy()
+
+        # We pass the predicted character as the next input to the model
+        # along with the previous hidden state
+        input_eval = tf.expand_dims([predicted_id], 0)
+        text_generated.append(idx2char[predicted_id])
+
+    return (start_string + ''.join(text_generated))
+
+print(generate_text(model, start_string=u"ROMEO: "))
