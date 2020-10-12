@@ -1,3 +1,5 @@
+#In this exercise I’ll take a synthetic data set and write the code to pick the learning rate and then train on it to get an MAE of < 3
+
 # Import libraries
 import tensorflow as tf
 import numpy as np
