@@ -2,6 +2,8 @@
 import tensorflow as tf
 import numpy as np
 import matplotlib.pyplot as plt
+import matplotlib.image  as mpimg
+import matplotlib.pyplot as plt
 
 # Helper functions
 def plot_series(time, series, format="-", start=0, end=None):
@@ -98,3 +100,79 @@ history = model.fit(dataset, epochs=100, callbacks=[lr_schedule])
 plt.semilogx(history.history["lr"], history.history["loss"])
 plt.axis([1e-8, 1e-4, 0, 30])
 plt.show()
+
+# Create new model
+tf.keras.backend.clear_session()
+tf.random.set_seed(51)
+np.random.seed(51)
+
+tf.keras.backend.clear_session()
+dataset = windowed_dataset(x_train, window_size, batch_size, shuffle_buffer_size)
+
+model = tf.keras.models.Sequential([
+  tf.keras.layers.Lambda(lambda x: tf.expand_dims(x, axis=-1),
+                      input_shape=[None]),
+   tf.keras.layers.Bidirectional(tf.keras.layers.LSTM(32, return_sequences=True)),
+  tf.keras.layers.Bidirectional(tf.keras.layers.LSTM(32)),
+  tf.keras.layers.Dense(1),
+  tf.keras.layers.Lambda(lambda x: x * 100.0)
+])
+
+
+model.compile(loss="mse", optimizer=tf.keras.optimizers.SGD(lr=1e-5, momentum=0.9),metrics=["mae"])
+history = model.fit(dataset,epochs=500,verbose=1)
+
+# Forecast
+forecast = []
+results = []
+for time in range(len(series) - window_size):
+  forecast.append(model.predict(series[time:time + window_size][np.newaxis]))
+
+forecast = forecast[split_time-window_size:]
+results = np.array(forecast)[:, 0, 0]
+
+
+plt.figure(figsize=(10, 6))
+
+plot_series(time_valid, x_valid)
+plot_series(time_valid, results)
+
+# MAE
+print(tf.keras.metrics.mean_absolute_error(x_valid, results).numpy())
+
+#-----------------------------------------------------------
+# Retrieve a list of list results on training and test data
+# sets for each training epoch
+#-----------------------------------------------------------
+mae=history.history['mae']
+loss=history.history['loss']
+
+epochs=range(len(loss)) # Get number of epochs
+
+#------------------------------------------------
+# Plot MAE and Loss
+#------------------------------------------------
+plt.plot(epochs, mae, 'r')
+plt.plot(epochs, loss, 'b')
+plt.title('MAE and Loss')
+plt.xlabel("Epochs")
+plt.ylabel("Accuracy")
+plt.legend(["MAE", "Loss"])
+
+plt.figure()
+
+epochs_zoom = epochs[200:]
+mae_zoom = mae[200:]
+loss_zoom = loss[200:]
+
+#------------------------------------------------
+# Plot Zoomed MAE and Loss
+#------------------------------------------------
+plt.plot(epochs_zoom, mae_zoom, 'r')
+plt.plot(epochs_zoom, loss_zoom, 'b')
+plt.title('MAE and Loss')
+plt.xlabel("Epochs")
+plt.ylabel("Accuracy")
+plt.legend(["MAE", "Loss"])
+
+plt.figure()
