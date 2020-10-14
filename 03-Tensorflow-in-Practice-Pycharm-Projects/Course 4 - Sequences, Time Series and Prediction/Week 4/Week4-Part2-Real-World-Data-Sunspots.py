@@ -4,6 +4,7 @@ import matplotlib.pyplot as plt
 import tensorflow as tf
 import csv
 
+
 # Create plot helper function
 def plot_series(time, series, format="-", start=0, end=None):
     plt.plot(time[start:end], series[start:end], format)
@@ -53,7 +54,7 @@ model = tf.keras.models.Sequential([
 ])
 
 model.compile(loss="mse", optimizer=tf.keras.optimizers.SGD(lr=1e-7, momentum=0.9))
-model.fit(dataset, epochs=100, verbose=2)
+model.fit(dataset, epochs=100, verbose=0)
 
 forecast=[]
 for time in range(len(series) - window_size):
@@ -65,7 +66,8 @@ results = np.array(forecast)[:, 0, 0]
 
 plt.figure(figsize=(10, 6))
 
-print(tf.keras.metrics.mean_absolute_error(x_valid, results).numpy())
 plot_series(time_valid, x_valid)
 plot_series(time_valid, results)
 plt.show()
+
+print(tf.keras.metrics.mean_absolute_error(x_valid, results).numpy())
