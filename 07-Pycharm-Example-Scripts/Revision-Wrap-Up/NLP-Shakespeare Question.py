@@ -9,11 +9,6 @@ import tensorflow.keras.utils as ku
 import numpy as np
 import matplotlib.pyplot as plt
 
-# Attempt to force CPU's
-# Set CPU as available physical device
-my_devices = tf.config.experimental.list_physical_devices(device_type='CPU')
-tf.config.experimental.set_visible_devices(devices = my_devices, device_type='CPU')
-
 # Instantiate tokenizer
 tokenizer = Tokenizer()
 
